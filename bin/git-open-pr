@@ -1,0 +1,46 @@
+#!/bin/bash
+# This is specific to Atlassian Stash not github
+
+USER=<USERNAME:PASSWORD>
+BASE_URL=<stash.DOMAIN.SOMETHING.SOMETHING>
+PROJECT=<project>
+REPOSITORY=<repo>
+
+# you can supply the branch to create the pull request against on the command line or it will default to master
+TARGET=${1:-master}
+
+URL=https://$BASE_URL/rest/api/1.0/projects/$PROJECT/repos/$REPOSITORY/pull-requests
+BRANCHNAME=$(git rev-parse --abbrev-ref HEAD)
+TITLE=$(echo $BRANCHNAME | sed "s/-\(.\)/ \U\1/g;s/^./\U\0/")
+ANCESTOR=$(git merge-base HEAD $TARGET)
+DESCRIPTION=$(git log --reverse --oneline $ANCESTOR..HEAD | sed "s/[^ ]* //;s/$/; /g")
+
+CONTENT=" \
+{ \
+  \"title\": \"$TITLE\", \
+  \"description\": \"$DESCRIPTION\", \
+  \"state\": \"OPEN\", \
+  \"fromRef\": { \
+    \"id\": \"refs/heads/$BRANCHNAME\", \
+    \"repository\": { \
+      \"slug\": \"$REPOSITORY\", \
+      \"name\": null, \
+      \"project\": { \
+        \"key\": \"$PROJECT\" \
+      } \
+    } \
+  }, \
+  \"toRef\": { \
+    \"id\": \"refs/heads/$TARGET\", \
+    \"repository\": { \
+      \"slug\": \"$REPOSITORY\", \
+      \"name\": null, \
+      \"project\": { \
+        \"key\": \"$PROJECT\" \
+      } \
+    } \
+  }, \
+  \"reviewers\": [] \
+}"
+
+echo $CONTENT | curl -w "%{http_code}" -X POST -H "Content-Type: application/json" --ssl --basic --user $USER -d @- $URL
