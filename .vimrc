@@ -1,4 +1,3 @@
-# windows settings
 set gfn=Consolas:h14:cANSI
 
 set nocompatible
