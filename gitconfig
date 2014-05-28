@@ -22,3 +22,6 @@
 	detachedHead = false
   pushNonFastForward = false
   statusHints = false
+[user]
+	name = Toby Moore
+	email = toby.moore.0@gmail.com
