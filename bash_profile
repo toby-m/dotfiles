@@ -1,5 +1,4 @@
-# PATH=/usr/local/git/bin/:$PATH
-# export EDITOR=vim
+export EDITOR=vim
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
