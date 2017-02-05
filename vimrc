@@ -1,4 +1,5 @@
 set gfn=Consolas:h14:cANSI
+colorscheme mayansmoke
 
 set nocompatible
 
@@ -10,13 +11,13 @@ set number
 set mouse=a
 set mousehide
 
+set cursorline
 set hlsearch
 set showmatch
 set ignorecase
 set autoindent
 set smartindent
 set history=1000
-set cursorline
 if has("unnamedplus")
   set clipboard=unnamedplus
 elseif has("clipboard")
@@ -28,4 +29,4 @@ set shiftwidth=2
 set tabstop=2
 set softtabstop=2
 
-autocmd FileType json set equalprg=~/bin/tidyjson.exe
+" autocmd FileType json set equalprg=~/bin/tidyjson.exe
