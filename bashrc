@@ -6,9 +6,14 @@ esac
 
 # keep machine specific stuff and keys in .profile
 source ~/.profile
+source ~/.git-prompt.sh
 
 export EDITOR=vim
 export PATH=$PATH:~/bin
+
+export GIT_PS1_SHOWUPSTREAM="auto"
+export GIT_PS1_SHOWDIRTYSTATE=true
+export PS1='\u:\w$(__git_ps1)\$ '
 
 # don't put duplicate lines or lines starting with space in the history, append file don't overwrite it
 HISTCONTROL=ignoreboth

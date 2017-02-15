@@ -26,8 +26,6 @@ function docker_init {
 }
 
 # alias xsd="/c/Program\ Files\ \(x86\)/Microsoft\ SDKs/Windows/v8.0A/bin/NETFX\ 4.0\ Tools/xsd.exe"
-if [ -e /c/Windows/System32/drivers/etc/hosts ] do
-    alias hostsfile="vim /c/Windows/System32/drivers/etc/hosts"
-fi
+[ -e /c/Windows/System32/drivers/etc/hosts ] && alias hostsfile="vim /c/Windows/System32/drivers/etc/hosts"
 
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
