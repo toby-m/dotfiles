@@ -4,25 +4,20 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-HISTCONTROL=ignoreboth
-# append to the history file, don't overwrite it
-shopt -s histappend
+# keep machine specific stuff and keys in .profile
+source ~/.profile
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+export EDITOR=vim
+export PATH=$PATH:~/bin
+
+# don't put duplicate lines or lines starting with space in the history, append file don't overwrite it
+HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
+shopt -s histappend
 
 # check the window size after each command
 shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
 
 # alias definitions
 if [ -f ~/.bash_aliases ]; then
@@ -38,4 +33,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-[ -n "$PS1" ] && source ~/.bash_profile
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
+
+# aws command line completer
+[ ! -e `which aws_completer` ] && complete -C aws_completer aws
