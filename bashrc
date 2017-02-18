@@ -5,7 +5,7 @@ case $- in
 esac
 
 # keep machine specific stuff and keys in .profile
-source ~/.profile
+[ -f ~/.profile ] && source ~/.profile
 source ~/.git-prompt.sh
 
 export EDITOR=vim
