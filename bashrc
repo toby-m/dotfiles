@@ -48,6 +48,7 @@ fi
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
+  __git_complete g __git_main
 fi
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
