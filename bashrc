@@ -56,3 +56,19 @@ fi
 
 # aws command line completer
 [ ! -e `which aws_completer` ] && complete -C aws_completer aws
+
+# docker drill aliases if available https://github.com/toby-m/docker-drill
+if (hash docker &>/dev/null) && [ ! -z "$(docker images -q docker-drill)" ]; then
+  function drill-tsv {
+    docker run --rm -it -v $PWD:/data/tsv -p 8047:8047 docker-drill
+  }
+
+  function drill-json {
+    docker run --rm -it -v $PWD:/data/json -p 8047:8047 docker-drill
+  }
+
+  function drill-csv {
+    docker run --rm -it -v $PWD:/data/csv -p 8047:8047 docker-drill
+  }
+fi
+
