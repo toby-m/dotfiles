@@ -25,6 +25,28 @@ function docker_init {
   eval $(docker-machine env) && echo "Ready"
 }
 
+alias github=GitHub
+
+function GitHub()
+{
+    if ! git rev-parse; then
+        return 1;
+    fi
+
+    git_url=$(git config --get remote.origin.url)
+    if [[ $git_url == https://github* ]]; then
+        open ${git_url%.git}
+        return 0
+    fi
+
+    if [[ $git_url == git@github.com* ]]; then
+        open $(echo $git_url | sed "s#.*:\(.*\).git\$#https://github.com/\1#")
+        return 0
+    fi
+
+    echo "Can't understand url $git_url" && return 1;
+}
+
 # alias xsd="/c/Program\ Files\ \(x86\)/Microsoft\ SDKs/Windows/v8.0A/bin/NETFX\ 4.0\ Tools/xsd.exe"
 [ -e /c/Windows/System32/drivers/etc/hosts ] && alias hostsfile="vim /c/Windows/System32/drivers/etc/hosts"
 
