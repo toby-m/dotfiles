@@ -13,15 +13,22 @@ NORMAL="\[\033[0m\]"
 RED="\[\033[31;1m\]"
 YELLOW="\[\033[33;1m\]"
 WHITE="\[\033[37;1m\]"
+GREY="\[\033[37;2m\]"
 SMILEY="${WHITE}:)${NORMAL}"
 FROWNY="${RED}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 export EDITOR=vim
 export PATH=$PATH:~/bin
 
+function venv_info() {
+  VE=$(echo $VIRTUAL_ENV | sed "s#.*/##g;s#^\(\w\)\w*#\1#;s#\W\(\w\)\w*#\1#g")
+  [[ -n "$VE" ]] && echo "[pyenv:$VE]"
+}
+VENV="${GREY}\$(venv_info)${NORMAL}";
+
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWDIRTYSTATE=true
-export PS1="\u:\w\$(__git_ps1) \`${SELECT}\`\$ "
+export PS1="\w\$(__git_ps1)$VENV$ "
 
 # don't put duplicate lines or lines starting with space in the history, append file don't overwrite it
 HISTCONTROL=ignoreboth
@@ -51,6 +58,8 @@ if [ -f ~/.git-completion.bash ]; then
   __git_complete g __git_main
 fi
 
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
 
@@ -72,3 +81,5 @@ if (hash docker &>/dev/null) && [ ! -z "$(docker images -q docker-drill)" ]; the
   }
 fi
 
+
+export PATH="$HOME/.yarn/bin:$PATH"
