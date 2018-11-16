@@ -51,3 +51,9 @@ function GitHub()
 [ -e /c/Windows/System32/drivers/etc/hosts ] && alias hostsfile="vim /c/Windows/System32/drivers/etc/hosts"
 
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
+alias aws2fas='PYENV_VERSION=aws_lease /Users/tmo/.pyenv/shims/aws2fa'
+alias crowdin="java -jar ~/bin/crowdin-cli.jar"
+
+alias tmux="TERM=screen-256color-bce tmux"
+

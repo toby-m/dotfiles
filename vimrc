@@ -8,16 +8,29 @@ call plug#begin()
 Plug 'w0ng/vim-hybrid'
 Plug 'vim-scripts/mayansmoke'
 
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'airblade/vim-gitgutter'
+Plug 'mileszs/ack.vim'
+
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'mileszs/ack.vim'
-Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-surround'
 
+Plug 'mxw/vim-jsx'
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+
+Plug 'elixir-editors/vim-elixir'
+Plug 'leafgarland/typescript-vim'
+
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ludovicchabant/vim-gutentags'
+
 call plug#end()
+
+let g:easytags_cmd = '/usr/local/bin/ctags'
+let g:gutentags_cache_dir='~/.tags/'
+let g:gutentags_ctags_auto_set_tags=1
 
 set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 filetype plugin indent on
@@ -73,20 +86,31 @@ map <C-m> :cp<CR>
 " i.e: <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
-" Close quickfix easily
-nnoremap <leader>a :cclose<CR>
-" Remove search highlight
-nnoremap <leader><space> :nohlsearch<CR>
+
+" Remove search highlight and close quickfix
+nnoremap <leader><space> :nohlsearch<CR>:cclose<CR>
+
+" ,. for tag search
+nnoremap <leader>. :CtrlPTag<cr>
+
+" tags files shouldn't be in each repo
 
 au FileType json setlocal equalprg=json
 
 if !has("gui_running")
   " NERDTree open when started with no args
   autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | wincmd p | endif
 endif
 
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 cnoreabbrev ag Ack!
+
+" Ignore node_modules for Ctrl-P and nerdtree
+set wildignore+=node_modules,__pycache__
+let g:NERDTreeIgnore=['node_modules', '__pycache__']
+let timeoutlen=2500
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

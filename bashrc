@@ -83,3 +83,6 @@ fi
 
 
 export PATH="$HOME/.yarn/bin:$PATH"
+
+export SWIVM_DIR="/Users/tmo/.swivm"
+[ -s "$SWIVM_DIR/swivm.sh" ] && . "$SWIVM_DIR/swivm.sh"  # This loads swivm
