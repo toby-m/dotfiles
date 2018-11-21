@@ -26,6 +26,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ludovicchabant/vim-gutentags'
 
+Plug 'vim-syntastic/syntastic', { 'for': 'haskell' }
 call plug#end()
 
 let g:easytags_cmd = '/usr/local/bin/ctags'
