@@ -26,6 +26,11 @@ function venv_info() {
 }
 VENV="${GREY}\$(venv_info)${NORMAL}";
 
+function vpn_on {
+  route get octopus.trustpilot.com | grep interface | cut -d' ' -f4 | xargs ifconfig | grep POINTOPOINT > /dev/null && echo "*" || echo " "
+}
+# VPN="${GREY}[${YELLOW}\$(vpn_on)${GREY}]${NORMAL}";
+
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWDIRTYSTATE=true
 export PS1="\w\$(__git_ps1)$VENV$ "
@@ -81,8 +86,9 @@ if (hash docker &>/dev/null) && [ ! -z "$(docker images -q docker-drill)" ]; the
   }
 fi
 
-
-export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.yarn/bin:/Applications/MacVim.app/Contents/bin:$PATH"
 
 export SWIVM_DIR="/Users/tmo/.swivm"
 [ -s "$SWIVM_DIR/swivm.sh" ] && . "$SWIVM_DIR/swivm.sh"  # This loads swivm
+
+export BAT_THEME=OneHalfLight

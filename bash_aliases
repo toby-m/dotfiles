@@ -12,7 +12,6 @@ alias l='ls -CF'
 alias g="git"
 alias grep='grep --color=auto'
 
-alias npm="time npm"
 alias ag="ag --silent"
 
 
@@ -24,8 +23,6 @@ function docker_init {
   fi
   eval $(docker-machine env) && echo "Ready"
 }
-
-alias github=GitHub
 
 function GitHub()
 {

@@ -97,6 +97,8 @@ nnoremap <leader>. :CtrlPTag<cr>
 " tags files shouldn't be in each repo
 
 au FileType json setlocal equalprg=json
+au FileType go setlocal equalprg=gofmt
+au FileType go setlocal makeprg=go\ build
 
 if !has("gui_running")
   " NERDTree open when started with no args
