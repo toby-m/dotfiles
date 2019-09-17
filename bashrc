@@ -6,7 +6,6 @@ esac
 
 # keep machine specific stuff and keys in .profile
 [ -f ~/.profile ] && source ~/.profile
-source ~/.git-prompt.sh
 
 RESET="\[\017\]"
 NORMAL="\[\033[0m\]"
