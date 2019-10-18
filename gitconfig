@@ -6,18 +6,14 @@
 	st = status
 	co = checkout
 	dawg = push origin
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-  ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
-  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-  cwb = rev-parse --abbrev-ref HEAD
-  list-alias = "!git config -l | grep alias | cut -c 7-"
   diff = diff --word-diff=color
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  drop-local = "!git branch --merged | grep -v master | grep -v '*' | xargs git branch -d"
   gg = "!git co master && git pull && git drop-local && git remote prune origin && git gc"
-	sl = "!f() { x=${1:--10}; git log --pretty=format:'%C(yellow)%h %Creset%s%C(bold blue) [%cn]'  $x; }; f"
+  list-alias = "!git config -l | grep alias | cut -c 7-"
 
 [push]
-	default = upstream
+	default = current
 [advice]
 	detachedHead = false
   pushNonFastForward = false

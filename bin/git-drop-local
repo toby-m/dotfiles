@@ -1,2 +1,0 @@
-#!/bin/bash
-git branch --merge | grep -v " `git cwb`$" | xargs -n1 git branch -d
