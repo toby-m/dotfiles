@@ -18,6 +18,8 @@
 	detachedHead = false
   pushNonFastForward = false
   statusHints = false
+[diff]
+	noprefix = true
 [user]
 	name = Toby Moore
 	email = toby.moore.0@gmail.com
