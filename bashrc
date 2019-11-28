@@ -20,7 +20,7 @@ export EDITOR=vim
 export PATH=$PATH:~/bin
 
 function venv_info() {
-  VE=$(echo $VIRTUAL_ENV | sed "s#.*/##g;s#^\(\w\)\w*#\1#;s#\W\(\w\)\w*#\1#g")
+  VE=$(echo $VIRTUAL_ENV | sed "s%.*/%%g;s%^\(\w\)\w*%\1%;s%\W\(\w\)\w*%\1%g")
   [[ -n "$VE" ]] && echo "[pyenv:$VE]"
 }
 VENV="${GREY}\$(venv_info)${NORMAL}";
@@ -29,6 +29,16 @@ function vpn_on {
   route get octopus.trustpilot.com | grep interface | cut -d' ' -f4 | xargs ifconfig | grep POINTOPOINT > /dev/null && echo "*" || echo " "
 }
 # VPN="${GREY}[${YELLOW}\$(vpn_on)${GREY}]${NORMAL}";
+
+alias g="git"
+
+if [ -f /usr/local/homebrew/etc/bash_completion.d/git-completion.bash ]; then
+  source /usr/local/homebrew/etc/bash_completion.d/git-completion.bash
+  __git_complete g __git_main
+fi
+if [ -f /usr/local/homebrew/etc/bash_completion.d/git-prompt.sh ]; then
+  source /usr/local/homebrew/etc/bash_completion.d/git-prompt.sh
+fi
 
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWDIRTYSTATE=true
@@ -57,37 +67,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-  __git_complete g __git_main
-fi
-
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
-
 # aws command line completer
 [ ! -e `which aws_completer` ] && complete -C aws_completer aws
 
-# docker drill aliases if available https://github.com/toby-m/docker-drill
-if (hash docker &>/dev/null) && [ ! -z "$(docker images -q docker-drill)" ]; then
-  function drill-tsv {
-    docker run --rm -it -v $PWD:/data/tsv -p 8047:8047 docker-drill
-  }
-
-  function drill-json {
-    docker run --rm -it -v $PWD:/data/json -p 8047:8047 docker-drill
-  }
-
-  function drill-csv {
-    docker run --rm -it -v $PWD:/data/csv -p 8047:8047 docker-drill
-  }
-fi
-
 export PATH="$HOME/.yarn/bin:/Applications/MacVim.app/Contents/bin:$PATH"
-
-export SWIVM_DIR="/Users/tmo/.swivm"
-[ -s "$SWIVM_DIR/swivm.sh" ] && . "$SWIVM_DIR/swivm.sh"  # This loads swivm
-
 export BAT_THEME=OneHalfLight

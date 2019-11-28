@@ -7,6 +7,7 @@
 	co = checkout
 	dawg = push origin
   diff = diff --word-diff=color
+  fixup = commit --amend --no-edit
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   drop-local = "!git branch --merged | grep -v master | grep -v '*' | xargs git branch -d"
   gg = "!git co master && git pull && git drop-local && git remote prune origin && git gc"

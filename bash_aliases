@@ -8,11 +8,8 @@ fi
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
-
-alias g="git"
 alias grep='grep --color=auto'
-
-alias ag="ag --silent"
+alias vf='vim `rg --files | fzf`'
 
 
 # docker OS X stuff
