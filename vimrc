@@ -9,29 +9,27 @@ Plug 'w0ng/vim-hybrid'
 Plug 'vim-scripts/mayansmoke'
 
 Plug 'airblade/vim-gitgutter'
-Plug 'mileszs/ack.vim'
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-Plug 'rust-lang/rust.vim'
-Plug 'tpope/vim-surround'
+" Plug 'rust-lang/rust.vim'
+" Plug 'tpope/vim-surround'
 
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 
-Plug 'elixir-editors/vim-elixir'
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
 
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ludovicchabant/vim-gutentags'
 
-Plug 'vim-syntastic/syntastic', { 'for': 'haskell' }
+" Plug 'vim-syntastic/syntastic', { 'for': 'haskell' }
 call plug#end()
 
-let g:easytags_cmd = '/usr/local/bin/ctags'
-let g:gutentags_cache_dir='~/.tags/'
-let g:gutentags_ctags_auto_set_tags=1
+" let g:easytags_cmd = '/usr/local/bin/ctags'
+" let g:gutentags_cache_dir='~/.tags/'
+" let g:gutentags_ctags_auto_set_tags=1
 
 set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 filetype plugin indent on
@@ -69,7 +67,7 @@ set tabstop=2
 set softtabstop=2
 set laststatus=2
 
-set gfn=Consolas:h14:cANSI
+" set gfn=Consolas:h14:cANSI
 colorscheme mayansmoke
 highlight LineNr ctermfg=grey ctermbg=white
 
@@ -96,9 +94,9 @@ nnoremap <leader>. :CtrlPTag<cr>
 
 " tags files shouldn't be in each repo
 
-au FileType json setlocal equalprg=json
-au FileType go setlocal equalprg=gofmt
-au FileType go setlocal makeprg=go\ build
+" au FileType json setlocal equalprg=json
+" au FileType go setlocal equalprg=gofmt
+" au FileType go setlocal makeprg=go\ build
 
 if !has("gui_running")
   " NERDTree open when started with no args
